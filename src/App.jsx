@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { DateTime } from 'luxon';
+import {DisplayFlights} from './DisplayFlights';
 
 const App = () => {
 
@@ -23,7 +24,7 @@ const App = () => {
   
   return (
     <div className="App">
-      test
+      <DisplayFlights />
     </div>
   );
 }
