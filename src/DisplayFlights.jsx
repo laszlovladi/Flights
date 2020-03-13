@@ -5,7 +5,7 @@ import { Table } from 'reactstrap';
 import { Spinner } from 'reactstrap';
 
 
-export const DisplayFlights = ({flights, display}) =>{
+export const DisplayFlights = ({flights, display, destination, departure}) =>{
   
   if (display === 'empty') {
     return <></>
@@ -17,21 +17,26 @@ export const DisplayFlights = ({flights, display}) =>{
     );
   }
 
+  if(0){
+    flights = flights.filter((flight)=>{
+      return flight.route.length === 1;
+    })
+  }
 
   const rows = flights.map((flight, index) => {
     const dTime = DateTime.fromMillis(flight.dTime * 1000).toFormat('dd/MM hh:mm')
     const aTime = DateTime.fromMillis(flight.aTime * 1000).toFormat('dd/MM hh:mm')
-
-    return (
-      <tr key={index}>
-        <td>{flight.flyFrom}</td>
-        <td>{flight.flyTo}</td>
-        <td>{dTime}</td>
-        <td>{aTime}</td>
-        <td>{flight.price}</td>
-      </tr>
-      // {flight}
-    )
+      return (
+        <tr key={index}>
+          <td>{flight.flyFrom}</td>
+          <td>{flight.flyTo}</td>
+          <td>{dTime}</td>
+          <td>{aTime}</td>
+          <td>{flight.price}</td>
+          <td>{flight.route.length-1}</td>
+        </tr>
+        // {flight}
+      )
   });
   
 
@@ -45,6 +50,7 @@ export const DisplayFlights = ({flights, display}) =>{
             <th>Time of departure</th>
             <th>Time of arrival</th>
             <th>Price</th>
+            <th>No. of stopovers</th>
           </tr>
         </thead>
         <tbody>

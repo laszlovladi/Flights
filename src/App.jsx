@@ -56,7 +56,13 @@ const App = () => {
   };
 
   function searchClicked(){
-    getSearchResults();
+    if (destination !== 'Destination' && departure !== 'Departure'){
+      getSearchResults();
+    }else{
+      const red = {color: 'red'}
+      // return <h3 style={red}>"Destination" or "Departure" is not selected!</h3>
+      alert('"Destination" or "Departure" is not selected!');
+    }
   }
 
   // useEffect(()=>{
@@ -66,7 +72,7 @@ const App = () => {
   return (
     <div className="App">
       <SearchBar searchClicked={searchClicked} departure={departure} destination={destination} setDeparture={setDeparture} setDestination={setDestination}/>
-      <DisplayFlights flights={flights} display={display}/>
+      <DisplayFlights flights={flights} display={display} departure={departure} destination={destination}/>
     </div>
   );
 }

@@ -48,13 +48,16 @@ export const SearchBar = ({searchClicked, departure, setDeparture, destination, 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen(prevState => !prevState);
 
-
   return(
     <div style={menu}>
-      <DDMenu title={departure} items={departures} handle={setDeparture}/>
-      <DDMenu title={destination} items={destinations} handle={setDestination}/>
+        <DDMenu title={departure} items={departures} handle={setDeparture}/>
+        <DDMenu title={destination} items={destinations} handle={setDestination}/>
       <div style={padding}>
-      <button onClick={searchClicked}>Search</button>
+        <input type="checkbox" id="direct" value=""/>
+        <label htmlFor="diredt">Direct flights only</label>
+      </div>
+      <div style={padding}>
+        <button onClick={searchClicked}>Search</button>
       </div>
     </div>
   )
