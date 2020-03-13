@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
 import { DateTime } from 'luxon';
+import { Table } from 'reactstrap';
 
 export const DisplayFlights = ({flights}) =>{
   const rows = flights.map((flight, index) => {
-    const dTime = DateTime.fromMillis(flight.dTime * 1000).toFormat('hh:mm')
-    const aTime = DateTime.fromMillis(flight.aTime * 1000).toFormat('hh:mm')
+    const dTime = DateTime.fromMillis(flight.dTime * 1000).toFormat('dd/MM hh:mm')
+    const aTime = DateTime.fromMillis(flight.aTime * 1000).toFormat('dd/MM hh:mm')
+
 
     return (
       <tr key={index}>
@@ -20,7 +22,7 @@ export const DisplayFlights = ({flights}) =>{
   });
   console.log(rows);
   return(
-      <table>
+      <Table>
         <thead>
           <tr>
             <th>Origin</th>
@@ -33,7 +35,7 @@ export const DisplayFlights = ({flights}) =>{
         <tbody>
           {rows}
          </tbody>
-      </table>
+      </Table>
     )
 }
 
