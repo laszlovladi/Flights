@@ -10,6 +10,7 @@ const App = () => {
   const [display, setDisplay] = useState('empty');
   const [departure, setDeparture] = useState('Departure');
   const [destination, setDestination] = useState('Destination');
+  const [cSelected, setCSelected] = useState(false);
   // const [dTime, setDTime] = useState('');
 
   const when = DateTime.local().plus({days: 1}).toFormat('dd/MM/yyyy');
@@ -71,8 +72,8 @@ const App = () => {
 
   return (
     <div className="App">
-      <SearchBar searchClicked={searchClicked} departure={departure} destination={destination} setDeparture={setDeparture} setDestination={setDestination}/>
-      <DisplayFlights flights={flights} display={display} departure={departure} destination={destination}/>
+      <SearchBar searchClicked={searchClicked} departure={departure} destination={destination} setDeparture={setDeparture} setDestination={setDestination} cSelected={cSelected} setCSelected={setCSelected}/>
+      <DisplayFlights flights={flights} display={display} departure={departure} destination={destination} cSelected={cSelected} setCSelected={setCSelected}/>
     </div>
   );
 }

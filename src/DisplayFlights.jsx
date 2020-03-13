@@ -5,7 +5,7 @@ import { Table } from 'reactstrap';
 import { Spinner } from 'reactstrap';
 
 
-export const DisplayFlights = ({flights, display, destination, departure}) =>{
+export const DisplayFlights = ({flights, display, destination, departure, cSelected}) =>{
   
   if (display === 'empty') {
     return <></>
@@ -17,10 +17,14 @@ export const DisplayFlights = ({flights, display, destination, departure}) =>{
     );
   }
 
-  if(0){
+  if(cSelected){
     flights = flights.filter((flight)=>{
       return flight.route.length === 1;
     })
+  }
+
+  if (flights.length === 0) {
+    return <h3>Sorry, there are no flights.</h3>
   }
 
   const rows = flights.map((flight, index) => {

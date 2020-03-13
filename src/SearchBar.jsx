@@ -3,6 +3,8 @@ import './App.css';
 import { DateTime } from 'luxon';
 import { Table } from 'reactstrap';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Checkbox } from './Checkbox';
+import { Button, ButtonGroup } from 'reactstrap';
 
 const departures = [
   'Prague',
@@ -43,7 +45,7 @@ const DDMenu = ({title, items, handle}) => {
   )
 }
 
-export const SearchBar = ({searchClicked, departure, setDeparture, destination, setDestination}) => {
+export const SearchBar = ({searchClicked, departure, setDeparture, destination, setDestination, cSelected, setCSelected}) => {
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen(prevState => !prevState);
@@ -53,11 +55,12 @@ export const SearchBar = ({searchClicked, departure, setDeparture, destination, 
         <DDMenu title={departure} items={departures} handle={setDeparture}/>
         <DDMenu title={destination} items={destinations} handle={setDestination}/>
       <div style={padding}>
-        <input type="checkbox" id="direct" value=""/>
-        <label htmlFor="diredt">Direct flights only</label>
+        <Checkbox cSelected={cSelected} setCSelected={setCSelected} />
+        {/* <input type="checkbox" id="direct" value=""/>
+        <label htmlFor="diredt">Direct flights only</label> */}
       </div>
       <div style={padding}>
-        <button onClick={searchClicked}>Search</button>
+        <Button onClick={searchClicked}>Search</Button>
       </div>
     </div>
   )
