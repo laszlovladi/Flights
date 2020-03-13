@@ -5,8 +5,13 @@ import { Table } from 'reactstrap';
 import { Spinner } from 'reactstrap';
 
 
-export const DisplayFlights = ({flights, loading}) =>{
-  if (loading) {
+export const DisplayFlights = ({flights, display}) =>{
+  
+  if (display === 'empty') {
+    return <></>
+  }
+  
+  if (display === 'loading') {
     return (
       <Loader />
     );

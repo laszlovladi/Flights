@@ -7,16 +7,27 @@ import {SearchBar} from './SearchBar';
 
 const App = () => {
   const [flights, setFlights] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [flyFrom, setflyFrom] = useState('PRG');
-  const [to, setTo] = useState('VLC');
+  const [display, setDisplay] = useState('empty');
+  const [departure, setDeparture] = useState('Departure');
+  const [destination, setDestination] = useState('Destination');
   // const [dTime, setDTime] = useState('');
 
   const when = DateTime.local().plus({days: 1}).toFormat('dd/MM/yyyy');
+  const code = {
+    'Prague': 'PRG',
+    'Berlin': 'BER',
+    'Warsaw': 'WAW',
+    'Pardubice': 'PED',
+    'Valencia': 'VLC',
+    'Barcelona': 'BCN',
+    'Madrid': 'MAD',
+    'Milano': 'MIL',
+    'Athens': 'ATH'
+  };
   const query = new URLSearchParams({
     partner: 'picky',
-    flyFrom: flyFrom,
-    to: to
+    flyFrom: code[departure],
+    to: code[destination]
   })
 
 
@@ -32,13 +43,13 @@ const App = () => {
 
 
   const getSearchResults = async () => {
-    setLoading(true);
+    setDisplay('loading');
     try{
       const response = await fetch(url);
       const data = await response.json();
       const flights = data.data;
       setFlights(flights);
-      setLoading(false);
+      setDisplay('table');
     }catch (err){
       console.log(err);
     }
@@ -54,8 +65,8 @@ const App = () => {
 
   return (
     <div className="App">
-      <SearchBar searchClicked={searchClicked}/>
-      <DisplayFlights flights={flights} loading={loading}/>
+      <SearchBar searchClicked={searchClicked} departure={departure} destination={destination} setDeparture={setDeparture} setDestination={setDestination}/>
+      <DisplayFlights flights={flights} display={display}/>
     </div>
   );
 }

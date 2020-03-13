@@ -11,7 +11,7 @@ const departures = [
   'Pardubice'
 ];
 
-const destination = [
+const destinations = [
   'Valencia',
   'Barcelona',
   'Madrid',
@@ -19,17 +19,20 @@ const destination = [
   'Athens'
 ]
 
-const DDMenu = ({title, items}) => {
+const DDMenu = ({title, items, handle}) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen(prevState => !prevState);
+  const select = (e) => {
+    handle(e.target.innerText);
+  }
   const list = items.map((item, index) => {
-    return <DropdownItem key={`dest-${index}`}>{item}</DropdownItem>
+    return <DropdownItem key={`dest-${index}`} onClick={select}>{item}</DropdownItem>
   })
   return (
     <div style={padding}>
     <Dropdown isOpen={dropdownOpen} toggle={toggle} >
       <DropdownToggle caret>
-        { title}
+        {title}
         </DropdownToggle>
       <DropdownMenu>
         {list}
@@ -40,31 +43,16 @@ const DDMenu = ({title, items}) => {
   )
 }
 
-export const SearchBar = ({searchClicked}) => {
+export const SearchBar = ({searchClicked, departure, setDeparture, destination, setDestination}) => {
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen(prevState => !prevState);
 
 
   return(
     <div style={menu}>
-      <DDMenu title="Departure" items={departures}/>
-      <DDMenu title="Destination" items={destination}/>
-
-      {/* <div style={padding}>
-      <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-        <DropdownToggle caret>
-          Destination
-          </DropdownToggle>
-        <DropdownMenu>
-          <DropdownItem>Valencia</DropdownItem>
-          <DropdownItem>Barcelona</DropdownItem>
-          <DropdownItem>Madrid</DropdownItem>
-          <DropdownItem>Milano</DropdownItem>
-          <DropdownItem>Athens</DropdownItem>
-        </DropdownMenu>
-      </Dropdown>
-      </div> */}
-
+      <DDMenu title={departure} items={departures} handle={setDeparture}/>
+      <DDMenu title={destination} items={destinations} handle={setDestination}/>
       <div style={padding}>
       <button onClick={searchClicked}>Search</button>
       </div>
