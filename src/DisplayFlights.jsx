@@ -3,9 +3,10 @@ import './App.css';
 import { DateTime } from 'luxon';
 import { Table } from 'reactstrap';
 import { Spinner } from 'reactstrap';
+import { Button, ButtonGroup } from 'reactstrap';
 
 
-export const DisplayFlights = ({flights, display, destination, departure, cSelected}) =>{
+export const DisplayFlights = ({flights, display, destination, departure, cSelected, offset, setOffset}) =>{
   
   if (display === 'empty') {
     return <></>
@@ -23,7 +24,11 @@ export const DisplayFlights = ({flights, display, destination, departure, cSelec
     })
   }
 
-  if (flights.length === 0) {
+  if (flights == null ) {
+    return <></>
+  }
+
+  if (flights.length === 0 ) {
     return <h3>Sorry, there are no flights.</h3>
   }
 
@@ -44,8 +49,13 @@ export const DisplayFlights = ({flights, display, destination, departure, cSelec
   });
   
 
+  function next(){
+    setOffset(offset+10)
+  }
+
   console.log(rows);
   return(
+    <>
       <Table>
         <thead>
           <tr>
@@ -61,6 +71,8 @@ export const DisplayFlights = ({flights, display, destination, departure, cSelec
           {rows}
          </tbody>
       </Table>
+      <Button onClick={next}>Next</Button>
+    </>
     )
 }
 

@@ -11,6 +11,7 @@ const App = () => {
   const [departure, setDeparture] = useState('Departure');
   const [destination, setDestination] = useState('Destination');
   const [cSelected, setCSelected] = useState(false);
+  const [offset, setOffset] = useState(0);
   // const [dTime, setDTime] = useState('');
 
   const when = DateTime.local().plus({days: 1}).toFormat('dd/MM/yyyy');
@@ -28,7 +29,9 @@ const App = () => {
   const query = new URLSearchParams({
     partner: 'picky',
     flyFrom: code[departure],
-    to: code[destination]
+    to: code[destination],
+    limit: 10,
+    offset: offset
   })
 
 
@@ -66,14 +69,23 @@ const App = () => {
     }
   }
 
+  useEffect(
+    () => {
+      getSearchResults();
+    }, [offset]
+  )
+
+
   // useEffect(()=>{
   //   getSearchResults()
   // },[flights])
 
   return (
     <div className="App">
-      <SearchBar searchClicked={searchClicked} departure={departure} destination={destination} setDeparture={setDeparture} setDestination={setDestination} cSelected={cSelected} setCSelected={setCSelected}/>
-      <DisplayFlights flights={flights} display={display} departure={departure} destination={destination} cSelected={cSelected} setCSelected={setCSelected}/>
+      <SearchBar searchClicked={searchClicked} departure={departure} destination={destination} setDeparture={setDeparture} 
+      setDestination={setDestination} cSelected={cSelected} setCSelected={setCSelected}/>
+      <DisplayFlights flights={flights} display={display} departure={departure} destination={destination} cSelected={cSelected} 
+      setCSelected={setCSelected} offset={offset} setOffset={setOffset}/>
     </div>
   );
 }
